@@ -8,6 +8,8 @@ export default function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const feedbackTypes = { good, neutral, bad };
+
   const addFeedback = feedbackName => {
     switch (feedbackName) {
       case 'good':
@@ -25,7 +27,8 @@ export default function App() {
   };
 
   const countTotalFeedback = () => {
-    return good + neutral + bad;
+    const values = Object.values(feedbackTypes);
+    return values.reduce((total, value) => total + value, 0);
   };
 
   const countPositiveFeedbackPercentage = () => {
@@ -33,7 +36,7 @@ export default function App() {
     return `${Math.round(Number(totalFeedback))}%`;
   };
 
-  const options = ['good', 'neutral', 'bad'];
+  const options = Object.keys(feedbackTypes);
   const totalFeedbacks = countTotalFeedback();
   const positiveFeedback = countPositiveFeedbackPercentage();
 
